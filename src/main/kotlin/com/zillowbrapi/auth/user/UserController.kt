@@ -1,7 +1,7 @@
-package com.zillowbrapi.user
+package com.zillowbrapi.auth.user
 
-import com.zillowbrapi.user.dtos.UserCreateRequest
-import com.zillowbrapi.user.dtos.UserUpdateRequest
+import com.zillowbrapi.auth.user.dtos.UserCreateRequest
+import com.zillowbrapi.auth.user.dtos.UserUpdateRequest
 import jakarta.validation.Valid
 import org.springframework.http.HttpStatus
 import org.springframework.http.ResponseEntity

@@ -1,9 +1,9 @@
-package com.zillowbrapi.user
+package com.zillowbrapi.auth.user
 
-import com.zillowbrapi.user.errors.UserDataIntegrityException
-import com.zillowbrapi.user.errors.UserErrorMessages
-import com.zillowbrapi.user.errors.UserNotFoundException
-import com.zillowbrapi.user.errors.UserValidationException
+import com.zillowbrapi.auth.user.errors.UserDataIntegrityException
+import com.zillowbrapi.auth.user.errors.UserErrorMessages
+import com.zillowbrapi.auth.user.errors.UserNotFoundException
+import com.zillowbrapi.auth.user.errors.UserValidationException
 import org.springframework.dao.DataIntegrityViolationException
 import org.springframework.http.HttpStatus
 import org.springframework.http.ResponseEntity

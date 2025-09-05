@@ -1,4 +1,4 @@
-package com.zillowbrapi.user.model
+package com.zillowbrapi.auth.user.model
 
 import com.zillowbrapi.common.database.BaseModel
 

@@ -1,6 +1,6 @@
-package com.zillowbrapi.user.dtos
+package com.zillowbrapi.auth.user.dtos
 
-import com.zillowbrapi.user.model.User
+import com.zillowbrapi.auth.user.model.User
 import jakarta.validation.constraints.Email
 import jakarta.validation.constraints.Pattern
 import jakarta.validation.constraints.Size

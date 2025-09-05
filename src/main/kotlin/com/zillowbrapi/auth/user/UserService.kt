@@ -1,8 +1,8 @@
-package com.zillowbrapi.user
+package com.zillowbrapi.auth.user
 
-import com.zillowbrapi.user.dtos.UserCreateRequest
-import com.zillowbrapi.user.dtos.UserUpdateRequest
-import com.zillowbrapi.user.model.User
+import com.zillowbrapi.auth.user.dtos.UserCreateRequest
+import com.zillowbrapi.auth.user.dtos.UserUpdateRequest
+import com.zillowbrapi.auth.user.model.User
 import org.springframework.dao.DataIntegrityViolationException
 import org.springframework.stereotype.Service
 import org.springframework.transaction.annotation.Transactional
@@ -125,7 +125,6 @@ class UserService(
             is UserRequestType.Create -> requestType.request
             is UserRequestType.Update -> requestType.request
         }
-
 
         val normalizedFirstName = user.firstName?.trim()
         val normalizedLastNameName = user.lastName?.trim()

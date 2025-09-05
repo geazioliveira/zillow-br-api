@@ -1,4 +1,4 @@
-package com.zillowbrapi.user
+package com.zillowbrapi.auth.user
 
 import com.zillowbrapi.common.database.BaseEntity
 import jakarta.persistence.Column
@@ -28,8 +28,4 @@ class UserEntity(
     @Column(nullable = false, unique = true)
     var email: String,
 
-) : BaseEntity() {
-
-    fun getFullName(): String = "$firstName $lastName"
-
-}
+) : BaseEntity()
