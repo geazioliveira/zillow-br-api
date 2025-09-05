@@ -22,7 +22,7 @@ class UserEntity(
     @Column(nullable = true)
     var photoUrl: String? = null,
 
-    @Column(nullable = false, length = 60)
+    @Column(nullable = false, length = 100)
     var password: String,
 
     @Column(nullable = false, unique = true)
