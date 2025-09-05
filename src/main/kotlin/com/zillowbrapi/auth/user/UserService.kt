@@ -3,15 +3,11 @@ package com.zillowbrapi.auth.user
 import com.zillowbrapi.auth.user.dtos.UserCreateRequest
 import com.zillowbrapi.auth.user.dtos.UserUpdateRequest
 import com.zillowbrapi.auth.user.model.User
+import com.zillowbrapi.auth.user.types.UserRequestType
 import org.springframework.dao.DataIntegrityViolationException
 import org.springframework.stereotype.Service
 import org.springframework.transaction.annotation.Transactional
 import java.time.Instant
-
-sealed class UserRequestType {
-    data class Create(val request: UserCreateRequest) : UserRequestType()
-    data class Update(val request: UserUpdateRequest, val existingUser: UserEntity) : UserRequestType()
-}
 
 @Service
 class UserService(
