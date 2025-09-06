@@ -1,7 +1,7 @@
 package com.zillowbrapi.auth.login
 
-import com.zillowbrapi.auth.user.UserEntity
 import com.zillowbrapi.auth.user.UserRepository
+import com.zillowbrapi.auth.user.model.UserEntity
 import jakarta.transaction.Transactional
 import org.springframework.stereotype.Service
 
