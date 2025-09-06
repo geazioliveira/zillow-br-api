@@ -9,4 +9,5 @@ interface User : BaseModel {
     val photoUrl: String?
     val password: String?
     val email: String?
+    val phone: String?
 }
