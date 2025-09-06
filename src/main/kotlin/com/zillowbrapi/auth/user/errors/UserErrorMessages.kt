@@ -13,6 +13,8 @@ object UserErrorMessages {
     const val EMAIL_INVALID_FORMAT = "Email must be a valid email address"
     const val USER_VALIDATION_ERROR = "User validation error"
     const val CONFLICT = "Conflict"
+    const val USER_ALREADY_IS_VERIFIED = "User is already verified"
+    const val USER_IS_DELETED = "User is deleted"
 }
 
 class UserValidationException(message: String, cause: Throwable? = null) : IllegalArgumentException(message, cause)
