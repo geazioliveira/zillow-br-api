@@ -43,6 +43,9 @@ data class UserCreateRequest (
     @field:Size(max = 100, message = "Email must not exceed 100 characters")
     override val email: String? = null,
 
+    @field:NotBlank(message = "Phone number must not be blank")
+    override val phone: String? = null,
+
     override val createdAt: Instant? = null,
     override val updatedAt: Instant? = null,
     override val deletedAt: Instant? = null
