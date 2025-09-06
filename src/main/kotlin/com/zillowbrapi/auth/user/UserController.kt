@@ -2,6 +2,7 @@ package com.zillowbrapi.auth.user
 
 import com.zillowbrapi.auth.user.dtos.UserCreateRequest
 import com.zillowbrapi.auth.user.dtos.UserUpdateRequest
+import com.zillowbrapi.auth.user.model.UserEntity
 import jakarta.validation.Valid
 import org.springframework.http.HttpStatus
 import org.springframework.http.ResponseEntity
@@ -31,5 +32,9 @@ class UserController(
     @DeleteMapping("/{id}")
     @ResponseStatus(HttpStatus.NO_CONTENT)
     fun delete(@PathVariable id: String) = service.delete(id)
+
+    @PatchMapping("/{id}/verify")
+    @ResponseStatus(HttpStatus.NO_CONTENT)
+    fun changeVerifyUser(@PathVariable id: String) = service.changeVerifyByUserId(id)
 }
 
