@@ -2,7 +2,9 @@ package com.zillowbrapi.auth.user
 
 import com.zillowbrapi.auth.user.dtos.UserCreateRequest
 import com.zillowbrapi.auth.user.dtos.UserUpdateRequest
+import com.zillowbrapi.auth.user.errors.UserErrorMessages
 import com.zillowbrapi.auth.user.model.User
+import com.zillowbrapi.auth.user.model.UserEntity
 import com.zillowbrapi.auth.user.types.UserRequestType
 import org.springframework.dao.DataIntegrityViolationException
 import org.springframework.stereotype.Service
@@ -105,6 +107,17 @@ class UserService(
         repository.deleteById(id)
     }
 
+    @Transactional
+    fun changeVerifyByUserId(id: String) {
+        val user = getById(id)
+
+        check(!(user.isDeleted())) { UserErrorMessages.USER_IS_DELETED }
+        check(!user.isVerified) { UserErrorMessages.USER_ALREADY_IS_VERIFIED }
+
+        user.isVerified = !user.isVerified
+        repository.save(user)
+    }
+
     /**
      * Validates and normalizes a user request for creating or updating a user. Trims unnecessary whitespace
      * from fields, normalizes the email to lowercase, and applies validation rules based on the request type.
@@ -122,21 +135,15 @@ class UserService(
             is UserRequestType.Update -> requestType.request
         }
 
-        val normalizedFirstName = user.firstName?.trim()
-        val normalizedLastNameName = user.lastName?.trim()
-        val normalizedEmail = user.email?.trim()?.lowercase()
-        val normalizedScreenName = user.screenName?.trim()
-        val normalizedPhotoUrl = user.photoUrl?.trim()?.takeIf { it.isNotBlank() }
-        val normalizedPassword = user.password?.trim()
-
         return object : User {
             override val id: Long? = user.id
-            override val firstName: String? = normalizedFirstName
-            override val lastName: String? = normalizedLastNameName
-            override val screenName: String? = normalizedScreenName
-            override val photoUrl: String? = normalizedPhotoUrl
-            override val password: String? = normalizedPassword
-            override val email: String? = normalizedEmail
+            override val firstName: String? = user.firstName?.trim()
+            override val lastName: String? = user.lastName?.trim()
+            override val screenName: String? = user.screenName?.trim()
+            override val photoUrl: String? = user.photoUrl?.trim()?.takeIf { it.isNotBlank() }
+            override val password: String? = user.password?.trim()
+            override val email: String? = user.email?.trim()?.lowercase()
+            override val phone = user.phone?.trim()
             override val createdAt: Instant? = user.createdAt
             override val updatedAt: Instant? = user.updatedAt
             override val deletedAt: Instant? = user.deletedAt
