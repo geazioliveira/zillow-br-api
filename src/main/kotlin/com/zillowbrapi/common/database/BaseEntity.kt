@@ -6,6 +6,7 @@ import org.hibernate.annotations.SQLDelete
 import org.hibernate.annotations.SQLRestriction
 import org.hibernate.annotations.UpdateTimestamp
 import java.time.Instant
+import java.util.*
 
 @MappedSuperclass
 @SQLDelete(sql = "UPDATE #{#entityName} SET deleted_at = NOW() WHERE id = ?")
@@ -13,7 +14,7 @@ import java.time.Instant
 class BaseEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.UUID)
-    var id: String? = null
+    var id: UUID? = null
 
     @CreationTimestamp
     @Column(name = "created_at", updatable = false)
