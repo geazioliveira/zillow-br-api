@@ -2,6 +2,7 @@ package com.zillowbrapi.auth.user
 
 import com.zillowbrapi.auth.user.dtos.UserCreateRequest
 import com.zillowbrapi.auth.user.dtos.UserUpdateRequest
+import com.zillowbrapi.auth.user.model.UserEntity
 import org.junit.jupiter.api.Assertions.assertEquals
 import org.junit.jupiter.api.Assertions.assertThrows
 import org.junit.jupiter.api.BeforeEach
