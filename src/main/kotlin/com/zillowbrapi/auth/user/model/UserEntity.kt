@@ -22,31 +22,52 @@ class UserEntity(
     var photoUrl: String? = null,
 
     @Column(nullable = false, length = 100)
-    var password: String,
+    var password: String?,
 
     @Column(nullable = false, unique = true)
-    var email: String,
+    var email: String?,
 
     @Column(nullable = true, length = 20)
     var phone: String? = null,
 
     @Column(name = "is_verified", nullable = false)
-    var isVerified: Boolean = false,
+    var isVerified: Boolean? = false,
 
     @Column(name = "email_verified", nullable = false)
-    var emailVerified: Boolean = false,
+    var emailVerified: Boolean? = false,
 
     @Column(name = "phone_verified", nullable = false)
-    var phoneVerified: Boolean = false,
+    var phoneVerified: Boolean? = false,
 
     @Enumerated(EnumType.STRING)
     @Column(nullable = false)
-    var status: UserStatus = UserStatus.ACTIVE,
+    var status: UserStatus? = UserStatus.ACTIVE,
 
     @ElementCollection(fetch = FetchType.EAGER)
     @CollectionTable(name = "user_roles", joinColumns = [JoinColumn(name = "user_id")])
     @Enumerated(EnumType.STRING)
     @Column(nullable = false)
-    var roles: MutableSet<UserRole> = mutableSetOf(UserRole.CONSUMER)
+    var roles: MutableSet<UserRole>? = mutableSetOf(UserRole.CONSUMER)
 
-) : BaseEntity()
+) : BaseEntity() {
+    constructor(user: User) : this(
+        firstName = user.firstName,
+        lastName = user.lastName,
+        screenName = user.screenName,
+        photoUrl = user.photoUrl,
+        password = user.password,
+        email = user.email,
+        phone = user.phone,
+        isVerified = user.isVerified,
+        emailVerified = user.emailVerified,
+        phoneVerified = user.phoneVerified,
+        status = user.status,
+        roles = user.roles,
+    )
+
+    companion object {
+        fun from(user: User, encodedPassword: String): UserEntity {
+            return UserEntity(user).apply { password = encodedPassword }
+        }
+    }
+}

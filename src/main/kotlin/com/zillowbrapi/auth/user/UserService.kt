@@ -6,6 +6,8 @@ import com.zillowbrapi.auth.user.errors.UserErrorMessages
 import com.zillowbrapi.auth.user.model.User
 import com.zillowbrapi.auth.user.model.UserEntity
 import com.zillowbrapi.auth.user.types.UserRequestType
+import com.zillowbrapi.auth.user.types.UserRole
+import com.zillowbrapi.auth.user.types.UserStatus
 import org.springframework.dao.DataIntegrityViolationException
 import org.springframework.stereotype.Service
 import org.springframework.transaction.annotation.Transactional
@@ -51,14 +53,9 @@ class UserService(
     fun create(req: UserCreateRequest): UserEntity {
         val validatedUser = validateAndNormalizeUserRequest(UserRequestType.Create(req))
 
-        val userEntity = UserEntity(
-            firstName = validatedUser.firstName!!,
-            lastName = validatedUser.lastName!!,
-            email = validatedUser.email!!,
-            screenName = validatedUser.screenName,
-            photoUrl = validatedUser.photoUrl,
-            password = passwordEncoder.encode(validatedUser.password!!),
-        )
+        val userEntity = UserEntity(validatedUser).apply {
+            password = passwordEncoder.encode(validatedUser.password!!)
+        }
 
         return repository.save(userEntity)
     }
@@ -112,9 +109,9 @@ class UserService(
         val user = getById(id)
 
         check(!(user.isDeleted())) { UserErrorMessages.USER_IS_DELETED }
-        check(!user.isVerified) { UserErrorMessages.USER_ALREADY_IS_VERIFIED }
+        check(user.isVerified == true) { UserErrorMessages.USER_ALREADY_IS_VERIFIED }
 
-        user.isVerified = !user.isVerified
+        user.isVerified = true
         repository.save(user)
     }
 
@@ -147,6 +144,11 @@ class UserService(
             override val createdAt: Instant? = user.createdAt
             override val updatedAt: Instant? = user.updatedAt
             override val deletedAt: Instant? = user.deletedAt
+            override val isVerified: Boolean? = user.isVerified
+            override val emailVerified: Boolean? = user.emailVerified
+            override val phoneVerified: Boolean? = user.phoneVerified
+            override val status: UserStatus? = user.status
+            override val roles: MutableSet<UserRole>? = user.roles
         }
     }
 }

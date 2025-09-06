@@ -3,6 +3,8 @@ package com.zillowbrapi.auth.user.dtos
 
 import com.zillowbrapi.auth.user.errors.UserErrorMessages
 import com.zillowbrapi.auth.user.model.User
+import com.zillowbrapi.auth.user.types.UserRole
+import com.zillowbrapi.auth.user.types.UserStatus
 import jakarta.validation.constraints.Email
 import jakarta.validation.constraints.NotBlank
 import jakarta.validation.constraints.Pattern
@@ -46,6 +48,11 @@ data class UserCreateRequest (
     @field:NotBlank(message = "Phone number must not be blank")
     override val phone: String? = null,
 
+    override val isVerified: Boolean? = false,
+    override val emailVerified: Boolean? = false,
+    override val phoneVerified: Boolean? = false,
+    override val status: UserStatus? = UserStatus.ACTIVE,
+    override val roles: MutableSet<UserRole>? = mutableSetOf(UserRole.CONSUMER),
     override val createdAt: Instant? = null,
     override val updatedAt: Instant? = null,
     override val deletedAt: Instant? = null

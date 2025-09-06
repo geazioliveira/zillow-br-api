@@ -1,5 +1,7 @@
 package com.zillowbrapi.auth.user.model
 
+import com.zillowbrapi.auth.user.types.UserRole
+import com.zillowbrapi.auth.user.types.UserStatus
 import com.zillowbrapi.common.database.BaseModel
 
 interface User : BaseModel {
@@ -10,4 +12,9 @@ interface User : BaseModel {
     val password: String?
     val email: String?
     val phone: String?
+    val isVerified: Boolean?
+    val emailVerified: Boolean?
+    val phoneVerified: Boolean?
+    val status: UserStatus?
+    val roles: MutableSet<UserRole>?
 }
