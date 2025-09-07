@@ -2,7 +2,7 @@ package com.zillowbrapi.auth.user.dtos
 
 
 import com.zillowbrapi.auth.user.errors.UserErrorMessages
-import com.zillowbrapi.auth.user.model.User
+import com.zillowbrapi.auth.user.models.User
 import com.zillowbrapi.auth.user.types.UserRole
 import com.zillowbrapi.auth.user.types.UserStatus
 import jakarta.validation.constraints.Email
