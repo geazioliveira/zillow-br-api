@@ -1,14 +1,15 @@
-package com.zillowbrapi.auth.user
+package com.zillowbrapi.auth.user.services
 
 import com.zillowbrapi.auth.user.dtos.UserCreateRequest
 import com.zillowbrapi.auth.user.dtos.UserUpdateRequest
 import com.zillowbrapi.auth.user.errors.UserErrorMessages
-import com.zillowbrapi.auth.user.model.User
-import com.zillowbrapi.auth.user.model.UserEntity
+import com.zillowbrapi.auth.user.models.User
+import com.zillowbrapi.auth.user.models.UserEntity
+import com.zillowbrapi.auth.user.repositories.UserRepository
 import com.zillowbrapi.auth.user.types.UserRequestType
 import com.zillowbrapi.auth.user.types.UserRole
 import com.zillowbrapi.auth.user.types.UserStatus
-import org.springframework.dao.DataIntegrityViolationException
+import org.springframework.security.crypto.password.PasswordEncoder
 import org.springframework.stereotype.Service
 import org.springframework.transaction.annotation.Transactional
 import java.time.Instant
@@ -16,7 +17,7 @@ import java.time.Instant
 @Service
 class UserService(
     private val repository: UserRepository,
-    private val passwordEncoder: org.springframework.security.crypto.password.PasswordEncoder
+    private val passwordEncoder: PasswordEncoder
 ) {
 
     /**
@@ -47,7 +48,7 @@ class UserService(
      * @param req the user creation request containing the details of the user to be created.
      * @return the newly created user entity.
      * @throws IllegalArgumentException if validation of the input request fails.
-     * @throws DataIntegrityViolationException if a unique constraint, such as the email, is violated.
+     * @throws org.springframework.dao.DataIntegrityViolationException if a unique constraint, such as the email, is violated.
      */
     @Transactional
     fun create(req: UserCreateRequest): UserEntity {
@@ -69,7 +70,7 @@ class UserService(
      * @return the updated user entity after persisting the changes.
      * @throws NoSuchElementException if no user with the specified ID exists.
      * @throws IllegalArgumentException if validation of the update request fails.
-     * @throws DataIntegrityViolationException if a unique constraint, such as the email, is violated.
+     * @throws org.springframework.dao.DataIntegrityViolationException if a unique constraint, such as the email, is violated.
      */
     @Transactional
     fun update(id: String, req: UserUpdateRequest): UserEntity {
@@ -124,7 +125,7 @@ class UserService(
      *                    for a new user or an Update request with changes to an existing user.
      * @return a `User` instance with normalized field values.
      * @throws IllegalArgumentException if any required field is missing, blank, or invalid based on the request type.
-     * @throws DataIntegrityViolationException if the provided email already exists in the database.
+     * @throws org.springframework.dao.DataIntegrityViolationException if the provided email already exists in the database.
      */
     private fun validateAndNormalizeUserRequest(requestType: UserRequestType): User {
         val user = when (requestType) {
@@ -152,5 +153,3 @@ class UserService(
         }
     }
 }
-
-
