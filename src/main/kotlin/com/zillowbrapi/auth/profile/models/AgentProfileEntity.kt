@@ -17,11 +17,15 @@ class AgentProfileEntity (
 
     var yearsExperience: Int? = null,
 
-    @ElementCollection @CollectionTable(name = "agent_specialties", joinColumns = [JoinColumn(name = "agent_profile_id")])
-    @Column(name = "specialty") var specialties: Set<String> = emptySet(),
+    @ElementCollection
+    @CollectionTable(name = "agent_specialties", joinColumns = [JoinColumn(name = "agent_profile_id")])
+    @Column(name = "specialty")
+    var specialties: Set<String> = emptySet(),
 
-    @ElementCollection @CollectionTable(name = "agent_languages", joinColumns = [JoinColumn(name = "agent_profile_id")])
-    @Column(name = "language") var languages: Set<String> = setOf("pt-BR"),
+    @ElementCollection
+    @CollectionTable(name = "agent_languages", joinColumns = [JoinColumn(name = "agent_profile_id")])
+    @Column(name = "language")
+    var languages: Set<String> = setOf("pt-BR"),
 
     @Column(columnDefinition = "jsonb") var serviceAreas: String? = null,
     var website: String? = null,
