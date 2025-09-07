@@ -1,4 +1,4 @@
-package com.zillowbrapi.auth.user.model
+package com.zillowbrapi.auth.user.models
 
 import com.zillowbrapi.auth.user.types.UserRole
 import com.zillowbrapi.auth.user.types.UserStatus
