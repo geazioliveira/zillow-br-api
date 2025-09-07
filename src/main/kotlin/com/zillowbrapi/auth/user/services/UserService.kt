@@ -13,6 +13,7 @@ import org.springframework.security.crypto.password.PasswordEncoder
 import org.springframework.stereotype.Service
 import org.springframework.transaction.annotation.Transactional
 import java.time.Instant
+import java.util.*
 
 @Service
 class UserService(
@@ -38,7 +39,7 @@ class UserService(
      * @throws NoSuchElementException if no user with the specified ID exists.
      */
     @Transactional(readOnly = true)
-    fun getById(id: String): UserEntity =
+    fun getById(id: UUID): UserEntity =
         repository.findById(id).orElseThrow { NoSuchElementException("User $id not found") }
 
     /**
@@ -73,19 +74,17 @@ class UserService(
      * @throws org.springframework.dao.DataIntegrityViolationException if a unique constraint, such as the email, is violated.
      */
     @Transactional
-    fun update(id: String, req: UserUpdateRequest): UserEntity {
+    fun update(id: UUID, req: UserUpdateRequest): UserEntity {
         val existingUser = getById(id)
         val validatedUser = validateAndNormalizeUserRequest(UserRequestType.Update(req, existingUser))
 
-        // Apply only the provided fields
-        validatedUser.firstName?.let { existingUser.firstName = it }
-        validatedUser.lastName?.let { existingUser.lastName = it }
-        validatedUser.email?.let { existingUser.email = it }
-        validatedUser.screenName?.let { existingUser.screenName = it }
-        validatedUser.photoUrl?.let { existingUser.photoUrl = it }
-        validatedUser.password?.let { existingUser.password = passwordEncoder.encode(it) }
+        val updatedEntity = if (validatedUser.password != null) {
+            UserEntity.from(validatedUser, passwordEncoder.encode(validatedUser.password!!))
+        } else {
+            UserEntity(validatedUser)
+        }.apply { this.id = existingUser.id }
 
-        return repository.save(existingUser)
+        return repository.save(updatedEntity)
     }
 
 
@@ -98,7 +97,7 @@ class UserService(
      * @throws NoSuchElementException if no user with the specified ID exists.
      */
     @Transactional
-    fun delete(id: String) {
+    fun delete(id: UUID) {
         if (!repository.existsById(id)) {
             throw NoSuchElementException("User $id not found")
         }
@@ -106,7 +105,7 @@ class UserService(
     }
 
     @Transactional
-    fun changeVerifyByUserId(id: String) {
+    fun changeVerifyByUserId(id: UUID) {
         val user = getById(id)
 
         check(!(user.isDeleted())) { UserErrorMessages.USER_IS_DELETED }
@@ -134,7 +133,7 @@ class UserService(
         }
 
         return object : User {
-            override val id: Long? = user.id
+            override val id: UUID? = user.id
             override val firstName: String? = user.firstName?.trim()
             override val lastName: String? = user.lastName?.trim()
             override val screenName: String? = user.screenName?.trim()
