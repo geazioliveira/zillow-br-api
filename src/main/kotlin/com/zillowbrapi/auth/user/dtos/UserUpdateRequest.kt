@@ -8,9 +8,10 @@ import jakarta.validation.constraints.NotBlank
 import jakarta.validation.constraints.Pattern
 import jakarta.validation.constraints.Size
 import java.time.Instant
+import java.util.*
 
 data class UserUpdateRequest(
-    override val id: Long? = null,
+    override val id: UUID? = null,
 
     @field:Size(min = 1, max = 50, message = "First name must be between 1 and 50 characters")
     override val firstName: String? = null,

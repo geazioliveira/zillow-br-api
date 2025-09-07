@@ -10,9 +10,10 @@ import jakarta.validation.constraints.NotBlank
 import jakarta.validation.constraints.Pattern
 import jakarta.validation.constraints.Size
 import java.time.Instant
+import java.util.*
 
 data class UserCreateRequest (
-    override val id: Long? = null,
+    override val id: UUID? = null,
 
     @field:NotBlank(message = UserErrorMessages.FIRST_NAME_BLANK)
     @field:Size(min = 2, max = 100, message = "First name must be between 1 and 100 characters")
