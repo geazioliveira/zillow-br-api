@@ -8,6 +8,7 @@ import jakarta.validation.Valid
 import org.springframework.http.HttpStatus
 import org.springframework.http.ResponseEntity
 import org.springframework.web.bind.annotation.*
+import java.util.*
 
 @RestController
 @RequestMapping("/api/auth/users")
@@ -25,16 +26,16 @@ class UserController(
     fun list(): List<UserEntity> = service.listAll()
 
     @GetMapping("/{id}")
-    fun get(@PathVariable id: String): UserEntity = service.getById(id)
+    fun get(@PathVariable id: UUID): UserEntity = service.getById(id)
 
     @PutMapping("/{id}")
-    fun update(@PathVariable id: String, @Valid @RequestBody req: UserUpdateRequest): UserEntity = service.update(id, req)
+    fun update(@PathVariable id: UUID, @Valid @RequestBody req: UserUpdateRequest): UserEntity = service.update(id, req)
 
     @DeleteMapping("/{id}")
     @ResponseStatus(HttpStatus.NO_CONTENT)
-    fun delete(@PathVariable id: String) = service.delete(id)
+    fun delete(@PathVariable id: UUID) = service.delete(id)
 
     @PatchMapping("/{id}/verify")
     @ResponseStatus(HttpStatus.NO_CONTENT)
-    fun changeVerifyUser(@PathVariable id: String) = service.changeVerifyByUserId(id)
+    fun changeVerifyUser(@PathVariable id: UUID) = service.changeVerifyByUserId(id)
 }
