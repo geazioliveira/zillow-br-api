@@ -1,5 +1,6 @@
 package com.zillowbrapi.auth.profile.models
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties
 import com.zillowbrapi.auth.profile.types.ProfileType
 import com.zillowbrapi.auth.profile.types.Visibility
 import com.zillowbrapi.auth.user.models.UserEntity
@@ -14,6 +15,7 @@ import jakarta.persistence.*
 class ProfileEntity (
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "user_id", nullable = false)
+    @JsonIgnoreProperties("profiles")
     var user: UserEntity? = null,
 
     @Enumerated(EnumType.STRING)

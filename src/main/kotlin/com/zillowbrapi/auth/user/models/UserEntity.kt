@@ -1,5 +1,7 @@
 package com.zillowbrapi.auth.user.models
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties
+import com.zillowbrapi.auth.profile.models.ProfileEntity
 import com.zillowbrapi.auth.user.types.UserRole
 import com.zillowbrapi.auth.user.types.UserStatus
 import com.zillowbrapi.common.database.BaseEntity
@@ -50,6 +52,11 @@ class UserEntity(
     var roles: MutableSet<UserRole>? = mutableSetOf(UserRole.CONSUMER)
 
 ) : BaseEntity() {
+
+    @OneToMany(mappedBy = "user", cascade = [CascadeType.ALL], orphanRemoval = true, fetch = FetchType.LAZY)
+    @JsonIgnoreProperties("user")
+    var profiles: MutableSet<ProfileEntity> = mutableSetOf()
+
     constructor(user: User) : this(
         firstName = user.firstName,
         lastName = user.lastName,
