@@ -1,5 +1,6 @@
 package com.zillowbrapi.auth.profile.models
 
+import com.zillowbrapi.auth.profile.dtos.AgentProfileEntityDto
 import com.zillowbrapi.common.database.BaseEntity
 import jakarta.persistence.*
 
@@ -34,4 +35,25 @@ class AgentProfileEntity (
     var totalReviews: Int = 0,
     var closedDealsCount: Int = 0,
     var avgResponseTimeHours: Int? = null
-) : BaseEntity()
+) : BaseEntity() {
+    constructor(profile: AgentProfileEntityDto) : this(
+        yearsExperience = profile.yearsExperience,
+        specialties = profile.specialties,
+        languages = profile.languages,
+        serviceAreas = profile.serviceAreas,
+        website = profile.website,
+        avgRating = profile.avgRating,
+        totalReviews = profile.totalReviews,
+        closedDealsCount = profile.closedDealsCount,
+        avgResponseTimeHours = profile.avgResponseTimeHours,
+        profile = checkNotNull(profile.profile) { ProfileEntity(profile.profile!!) } as ProfileEntity,
+        creciUf = checkNotNull(profile.creciUf) { "CRECI UF cannot be null" },
+        creciNumber = checkNotNull(profile.creciNumber) { "CRECI number cannot be null" }
+    )
+
+    companion object {
+        fun from(profile: AgentProfileEntityDto): AgentProfileEntity {
+            return AgentProfileEntity(profile)
+        }
+    }
+}
