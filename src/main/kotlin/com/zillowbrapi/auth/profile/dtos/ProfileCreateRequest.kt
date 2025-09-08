@@ -1,48 +1,57 @@
 package com.zillowbrapi.auth.profile.dtos
 
 import com.zillowbrapi.auth.profile.errors.ProfileErrorMessage
+import com.zillowbrapi.auth.profile.models.Profile
 import com.zillowbrapi.auth.profile.types.ProfileType
 import com.zillowbrapi.auth.profile.types.Visibility
-import jakarta.validation.constraints.NotBlank
+import com.zillowbrapi.auth.user.models.UserEntity
 import jakarta.validation.constraints.NotNull
 import jakarta.validation.constraints.Pattern
 import jakarta.validation.constraints.Size
 import org.hibernate.validator.constraints.URL
+import java.time.Instant
+import java.util.*
 
 
-data class ProfileCreateRequest (
+data class ProfileCreateRequest(
+    override val id: UUID? = null,
+
+    override var user: UserEntity? = null,
+
     @field:NotNull(message = ProfileErrorMessage.USER_ID_REQUIRED)
-    @field:NotBlank(message = ProfileErrorMessage.USER_ID_NOT_BLANK)
-    var user: String,
+    override var userId: UUID? = null,
 
     @field:NotNull(message = ProfileErrorMessage.TYPE_REQUIRED)
-    var type: ProfileType,
+    override var type: ProfileType = ProfileType.CONSUMER,
 
     @field:URL(message = ProfileErrorMessage.AVATAR_URL_INVALID_FORMAT)
     @field:Size(max = 500, message = ProfileErrorMessage.AVATAR_URL_INVALID_LENGTH)
-    var avatarUrl: String? = null,
+    override var avatarUrl: String? = null,
 
     @field:URL(message = ProfileErrorMessage.COVER_URL_INVALID_FORMAT)
     @field:Size(max = 500, message = ProfileErrorMessage.COVER_URL_INVALID_LENGTH)
-    var coverUrl: String? = null,
+    override var coverUrl: String? = null,
 
     @field:Size(max = 1000, message = ProfileErrorMessage.BIO_SIZE_INVALID)
-    var bio: String? = null,
+    override var bio: String? = null,
 
     @field:Size(max = 100, message = ProfileErrorMessage.PRIMARY_CITY_SIZE_INVALID)
     @field:Pattern(
         regexp = "^[\\p{L}\\s\\-']+$",
         message = ProfileErrorMessage.PRIMARY_CITY_INVALID
     )
-    var primaryCity: String? = null,
+    override var primaryCity: String? = null,
 
-    @field:Size(max = 2, message = ProfileErrorMessage.PRIMARY_STATE_SIZE_INVALID)
+    @field:Size(max = 50, message = ProfileErrorMessage.PRIMARY_STATE_SIZE_INVALID)
     @field:Pattern(
-        regexp = "^[A-Z]{2}$",
+        regexp = "^[\\p{L}\\s\\-']+$",
         message = ProfileErrorMessage.PRIMARY_STATE_INVALID
     )
-    var primaryState: String? = null,
+    override var primaryState: String? = null,
 
     @field:NotNull(message = ProfileErrorMessage.VISIBILITY_NOT_NULL)
-    var visibility: Visibility = Visibility.PRIVATE
-)
+    override var visibility: Visibility = Visibility.PRIVATE,
+    override val createdAt: Instant? = null,
+    override val updatedAt: Instant? = null,
+    override val deletedAt: Instant? = null
+) : Profile
