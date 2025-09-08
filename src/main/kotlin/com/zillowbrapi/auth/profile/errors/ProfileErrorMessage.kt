@@ -2,7 +2,7 @@ package com.zillowbrapi.auth.profile.errors
 
 object ProfileErrorMessage {
     const val USER_ID_REQUIRED = "User ID is required."
-    const val USER_ID_NOT_BLANK = "User ID cannot be blank."
+    const val USER_ID_IS_NOT_UUID = "User ID must be a valid UUID."
 
     const val TYPE_REQUIRED = "Profile Type is required."
 
