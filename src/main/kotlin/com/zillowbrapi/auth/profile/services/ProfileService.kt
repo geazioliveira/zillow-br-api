@@ -71,9 +71,9 @@ class ProfileService(
 
         return object : Profile {
             override val id: UUID? = profile.id
-            override val userId: UUID = requireNotNull(profile.userId) { "User ID cannot be null" }
+            override val userId: UUID? = profile.userId
             override val user: UserEntity = user
-            override val type: ProfileType = requireNotNull(profile.type) { ProfileType.CONSUMER }
+            override val type: ProfileType? = profile.type
             override val avatarUrl: String? = profile.avatarUrl?.trim()?.takeIf { it.isNotBlank() }
             override val coverUrl: String? = profile.coverUrl?.trim()?.takeIf { it.isNotBlank() }
             override val bio: String? = profile.bio?.trim()?.takeIf { it.isNotBlank() }
