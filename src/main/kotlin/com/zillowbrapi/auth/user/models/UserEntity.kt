@@ -2,6 +2,7 @@ package com.zillowbrapi.auth.user.models
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties
 import com.zillowbrapi.auth.profile.models.ProfileEntity
+import com.zillowbrapi.auth.user.dtos.UserUpdateRequest
 import com.zillowbrapi.auth.user.types.UserRole
 import com.zillowbrapi.auth.user.types.UserStatus
 import com.zillowbrapi.common.database.BaseEntity
@@ -77,4 +78,32 @@ class UserEntity(
             return UserEntity(user).apply { password = encodedPassword }
         }
     }
+
+
+    /**
+     * Updates the current UserEntity instance with the non-null values from the provided User instance.
+     * The method assigns values from the User instance to the corresponding fields in the UserEntity.
+     *
+     * @param user the User instance containing the values to update the current UserEntity fields
+     * @return the updated UserEntity instance
+     */
+    fun updateFrom(user: User): UserEntity {
+        user.firstName?.let { firstName = it }
+        user.lastName?.let { lastName = it }
+        user.screenName?.let { screenName = it }
+        user.photoUrl?.let { photoUrl = it }
+        user.password?.let { password = it }
+        user.email?.let { email = it }
+        user.phone?.let { phone = it }
+        user.isVerified?.let { isVerified = it }
+        user.emailVerified?.let { emailVerified = it }
+        user.phoneVerified?.let { phoneVerified = it }
+        user.status?.let { status = it }
+        user.roles?.let { roles = it }
+
+        return this
+    }
+
+    fun updateFrom(request: UserUpdateRequest): UserEntity = updateFrom(request as User)
+
 }
