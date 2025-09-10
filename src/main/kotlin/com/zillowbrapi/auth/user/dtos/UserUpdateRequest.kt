@@ -4,7 +4,6 @@ import com.zillowbrapi.auth.user.models.User
 import com.zillowbrapi.auth.user.types.UserRole
 import com.zillowbrapi.auth.user.types.UserStatus
 import jakarta.validation.constraints.Email
-import jakarta.validation.constraints.NotBlank
 import jakarta.validation.constraints.Pattern
 import jakarta.validation.constraints.Size
 import java.time.Instant
@@ -38,10 +37,7 @@ data class UserUpdateRequest(
     @field:Email(message = "Email must be a valid email address")
     @field:Size(max = 100, message = "Email must not exceed 100 characters")
     override val email: String? = null,
-
-    @field:NotBlank(message = "Phone number must not be blank")
     override val phone: String? = null,
-
     override val isVerified: Boolean? = false,
     override val emailVerified: Boolean? = false,
     override val phoneVerified: Boolean? = false,
