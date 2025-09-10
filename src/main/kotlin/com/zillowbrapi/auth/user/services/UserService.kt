@@ -78,15 +78,14 @@ class UserService(
         val existingUser = getById(id)
         val validatedUser = validateAndNormalizeUserRequest(UserRequestType.Update(req, existingUser))
 
-        val updatedEntity = if (validatedUser.password != null) {
-            UserEntity.from(validatedUser, passwordEncoder.encode(validatedUser.password!!))
-        } else {
-            UserEntity(validatedUser)
-        }.apply { this.id = existingUser.id }
+        validatedUser.password?.let {
+            existingUser.password = passwordEncoder.encode(it)
+        }
 
-        return repository.save(updatedEntity)
+        existingUser.updateFrom(validatedUser)
+
+        return repository.save(existingUser)
     }
-
 
     /**
      * Deletes a user entity identified by the provided unique ID.
@@ -113,6 +112,20 @@ class UserService(
 
         user.isVerified = true
         repository.save(user)
+    }
+
+    @Transactional
+    fun addNewRoleToUser(id: UUID, role: UserRole): UserEntity {
+        val user = getById(id)
+        user.roles?.add(role)
+        return repository.save(user)
+    }
+
+    @Transactional
+    fun removeRoleFromUser(id: UUID, role: UserRole): UserEntity {
+        val user = getById(id)
+        user.roles?.remove(role)
+        return repository.save(user)
     }
 
     /**
