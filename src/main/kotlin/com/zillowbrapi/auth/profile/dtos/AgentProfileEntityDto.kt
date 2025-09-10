@@ -14,7 +14,7 @@ import java.util.Collections.emptySet
  * DTO for {@link com.zillowbrapi.auth.profile.models.AgentProfileEntity}
  */
 data class AgentProfileEntityDto(
-    @field:NotNull var id: UUID? = null,
+    var id: UUID? = null,
     val createdAt: Instant? = null,
     val updatedAt: Instant? = null,
     val deletedAt: Instant? = null,

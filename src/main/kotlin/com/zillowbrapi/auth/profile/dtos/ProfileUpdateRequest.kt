@@ -5,7 +5,6 @@ import com.zillowbrapi.auth.profile.models.Profile
 import com.zillowbrapi.auth.profile.types.ProfileType
 import com.zillowbrapi.auth.profile.types.Visibility
 import com.zillowbrapi.auth.user.models.UserEntity
-import jakarta.validation.constraints.NotNull
 import jakarta.validation.constraints.Pattern
 import jakarta.validation.constraints.Size
 import org.hibernate.validator.constraints.URL
@@ -14,15 +13,9 @@ import java.util.*
 
 data class ProfileUpdateRequest (
     override val id: UUID? = null,
-
-    override var user: UserEntity,
-
-    @field:NotNull(message = ProfileErrorMessage.USER_ID_REQUIRED)
+    override var user: UserEntity? = null,
     override var userId: UUID? = null,
-
-    @field:NotNull(message = ProfileErrorMessage.TYPE_REQUIRED)
     override var type: ProfileType,
-
     @field:URL(message = ProfileErrorMessage.AVATAR_URL_INVALID_FORMAT)
     @field:Size(max = 500, message = ProfileErrorMessage.AVATAR_URL_INVALID_LENGTH)
     override var avatarUrl: String? = null,
@@ -47,8 +40,6 @@ data class ProfileUpdateRequest (
         message = ProfileErrorMessage.PRIMARY_STATE_INVALID
     )
     override var primaryState: String? = null,
-
-    @field:NotNull(message = ProfileErrorMessage.VISIBILITY_NOT_NULL)
     override var visibility: Visibility = Visibility.PRIVATE,
     override val createdAt: Instant? = null,
     override val updatedAt: Instant? = null,
