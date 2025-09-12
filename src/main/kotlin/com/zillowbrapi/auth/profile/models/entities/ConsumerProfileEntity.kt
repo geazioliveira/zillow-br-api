@@ -1,4 +1,4 @@
-package com.zillowbrapi.auth.profile.models
+package com.zillowbrapi.auth.profile.models.entities
 
 import com.zillowbrapi.auth.profile.types.Stage
 import com.zillowbrapi.common.database.BaseEntity
