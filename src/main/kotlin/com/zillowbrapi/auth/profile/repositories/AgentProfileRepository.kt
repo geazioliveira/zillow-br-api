@@ -1,6 +1,6 @@
 package com.zillowbrapi.auth.profile.repositories
 
-import com.zillowbrapi.auth.profile.models.AgentProfileEntity
+import com.zillowbrapi.auth.profile.models.entities.AgentProfileEntity
 import org.springframework.data.jpa.repository.JpaRepository
 import org.springframework.data.jpa.repository.Query
 import java.util.*
