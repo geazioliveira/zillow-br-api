@@ -1,9 +1,9 @@
 package com.zillowbrapi.auth.profile.controllers
 
-import com.zillowbrapi.auth.profile.dtos.ProfileCreateRequest
-import com.zillowbrapi.auth.profile.dtos.ProfileUpdateRequest
-import com.zillowbrapi.auth.profile.models.ProfileEntity
+import com.zillowbrapi.auth.profile.models.entities.ProfileEntity
 import com.zillowbrapi.auth.profile.services.ProfileService
+import com.zillowbrapi.auth.profile.validators.ProfileCreateRequest
+import com.zillowbrapi.auth.profile.validators.ProfileUpdateRequest
 import jakarta.validation.Valid
 import org.springframework.http.HttpStatus
 import org.springframework.http.ResponseEntity

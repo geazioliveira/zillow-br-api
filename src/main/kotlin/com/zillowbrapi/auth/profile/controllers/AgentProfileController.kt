@@ -1,8 +1,9 @@
 package com.zillowbrapi.auth.profile.controllers
 
-import com.zillowbrapi.auth.profile.dtos.AgentProfileEntityDto
-import com.zillowbrapi.auth.profile.models.AgentProfileEntity
+import com.zillowbrapi.auth.profile.models.entities.AgentProfileEntity
 import com.zillowbrapi.auth.profile.services.AgentProfileService
+import com.zillowbrapi.auth.profile.validators.AgentProfileCreateRequest
+import com.zillowbrapi.auth.profile.validators.AgentProfileUpdateRequest
 import jakarta.validation.Valid
 import org.springframework.http.HttpStatus
 import org.springframework.http.ResponseEntity
@@ -31,14 +32,14 @@ class AgentProfileController (
 
     @PostMapping
     fun create(@Valid
-    @RequestBody data: AgentProfileEntityDto): ResponseEntity<AgentProfileEntity> {
+    @RequestBody data: AgentProfileCreateRequest): ResponseEntity<AgentProfileEntity> {
         return ResponseEntity.status(201).body(agentProfileService.create(data))
     }
 
     @PutMapping("/{id}")
     fun update(
         @PathVariable id: UUID,
-        @Valid @RequestBody data: AgentProfileEntityDto
+        @Valid @RequestBody data: AgentProfileUpdateRequest
     ): AgentProfileEntity = agentProfileService.update(id, data)
 
     @DeleteMapping("/{id}")
