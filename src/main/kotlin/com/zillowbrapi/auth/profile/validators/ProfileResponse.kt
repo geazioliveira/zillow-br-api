@@ -1,4 +1,4 @@
-package com.zillowbrapi.auth.profile.dtos
+package com.zillowbrapi.auth.profile.validators
 
 import com.zillowbrapi.auth.profile.models.Profile
 import com.zillowbrapi.auth.profile.types.ProfileType
