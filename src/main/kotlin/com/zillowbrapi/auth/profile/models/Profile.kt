@@ -2,7 +2,7 @@ package com.zillowbrapi.auth.profile.models
 
 import com.zillowbrapi.auth.profile.types.ProfileType
 import com.zillowbrapi.auth.profile.types.Visibility
-import com.zillowbrapi.auth.user.models.UserEntity
+import com.zillowbrapi.auth.user.models.entities.UserEntity
 import com.zillowbrapi.common.database.BaseModel
 import java.util.*
 

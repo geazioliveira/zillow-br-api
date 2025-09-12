@@ -2,7 +2,7 @@ package com.zillowbrapi.auth.user.types
 
 import com.zillowbrapi.auth.user.dtos.UserCreateRequest
 import com.zillowbrapi.auth.user.dtos.UserUpdateRequest
-import com.zillowbrapi.auth.user.models.UserEntity
+import com.zillowbrapi.auth.user.models.entities.UserEntity
 
 sealed class UserRequestType {
     data class Create(val request: UserCreateRequest) : UserRequestType()

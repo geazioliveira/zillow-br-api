@@ -4,7 +4,7 @@ import com.zillowbrapi.auth.user.dtos.UserCreateRequest
 import com.zillowbrapi.auth.user.dtos.UserUpdateRequest
 import com.zillowbrapi.auth.user.errors.UserErrorMessages
 import com.zillowbrapi.auth.user.models.User
-import com.zillowbrapi.auth.user.models.UserEntity
+import com.zillowbrapi.auth.user.models.entities.UserEntity
 import com.zillowbrapi.auth.user.repositories.UserRepository
 import com.zillowbrapi.auth.user.types.UserRequestType
 import com.zillowbrapi.auth.user.types.UserRole

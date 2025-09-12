@@ -4,7 +4,7 @@ import com.fasterxml.jackson.annotation.JsonIgnoreProperties
 import com.zillowbrapi.auth.profile.models.Profile
 import com.zillowbrapi.auth.profile.types.ProfileType
 import com.zillowbrapi.auth.profile.types.Visibility
-import com.zillowbrapi.auth.user.models.UserEntity
+import com.zillowbrapi.auth.user.models.entities.UserEntity
 import com.zillowbrapi.common.database.BaseEntity
 import jakarta.persistence.*
 

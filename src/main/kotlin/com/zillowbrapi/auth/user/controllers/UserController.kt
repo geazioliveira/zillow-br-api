@@ -3,7 +3,7 @@ package com.zillowbrapi.auth.user.controllers
 import com.zillowbrapi.auth.user.dtos.UserChangeRoleRequest
 import com.zillowbrapi.auth.user.dtos.UserCreateRequest
 import com.zillowbrapi.auth.user.dtos.UserUpdateRequest
-import com.zillowbrapi.auth.user.models.UserEntity
+import com.zillowbrapi.auth.user.models.entities.UserEntity
 import com.zillowbrapi.auth.user.services.UserService
 import com.zillowbrapi.auth.user.types.UserChangeRoleType
 import jakarta.validation.Valid

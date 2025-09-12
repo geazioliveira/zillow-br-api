@@ -1,7 +1,7 @@
 package com.zillowbrapi.auth.login
 
 import com.zillowbrapi.auth.login.dtos.LoginRequest
-import com.zillowbrapi.auth.user.models.UserEntity
+import com.zillowbrapi.auth.user.models.entities.UserEntity
 import jakarta.validation.Valid
 import org.springframework.http.ResponseEntity
 import org.springframework.web.bind.annotation.PostMapping

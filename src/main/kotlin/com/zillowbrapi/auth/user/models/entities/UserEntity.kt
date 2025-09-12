@@ -1,8 +1,9 @@
-package com.zillowbrapi.auth.user.models
+package com.zillowbrapi.auth.user.models.entities
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties
 import com.zillowbrapi.auth.profile.models.entities.ProfileEntity
 import com.zillowbrapi.auth.user.dtos.UserUpdateRequest
+import com.zillowbrapi.auth.user.models.User
 import com.zillowbrapi.auth.user.types.UserRole
 import com.zillowbrapi.auth.user.types.UserStatus
 import com.zillowbrapi.common.database.BaseEntity

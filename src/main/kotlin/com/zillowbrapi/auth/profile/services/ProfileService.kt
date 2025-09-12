@@ -8,7 +8,7 @@ import com.zillowbrapi.auth.profile.types.ProfileType
 import com.zillowbrapi.auth.profile.types.Visibility
 import com.zillowbrapi.auth.profile.validators.ProfileCreateRequest
 import com.zillowbrapi.auth.profile.validators.ProfileUpdateRequest
-import com.zillowbrapi.auth.user.models.UserEntity
+import com.zillowbrapi.auth.user.models.entities.UserEntity
 import com.zillowbrapi.auth.user.services.UserService
 import org.springframework.stereotype.Service
 import org.springframework.transaction.annotation.Transactional
