@@ -1,9 +1,10 @@
 package com.zillowbrapi.auth.profile.services
 
-import com.zillowbrapi.auth.profile.dtos.AgentProfileEntityDto
-import com.zillowbrapi.auth.profile.models.AgentProfileEntity
+import com.zillowbrapi.auth.profile.models.entities.AgentProfileEntity
 import com.zillowbrapi.auth.profile.repositories.AgentProfileRepository
 import com.zillowbrapi.auth.profile.types.ProfileType
+import com.zillowbrapi.auth.profile.validators.AgentProfileCreateRequest
+import com.zillowbrapi.auth.profile.validators.AgentProfileUpdateRequest
 import com.zillowbrapi.auth.user.types.UserRole
 import org.springframework.dao.DataIntegrityViolationException
 import org.springframework.stereotype.Service
@@ -40,7 +41,7 @@ class AgentProfileService(
     }
 
     @Transactional
-    fun create(req: AgentProfileEntityDto): AgentProfileEntity {
+    fun create(req: AgentProfileCreateRequest): AgentProfileEntity {
         val profile = profileService.getById(req.profileId!!)
 
         // Validate profile type
@@ -59,11 +60,13 @@ class AgentProfileService(
             "CRECI ${req.creciNumber} already exists for ${req.creciUf}"
         }
 
-        return repository.save(AgentProfileEntity(req))
+        val agentProfile = AgentProfileEntity(req).apply { this.profile = profile }
+
+        return repository.save(agentProfile)
     }
 
     @Transactional
-    fun update(id: UUID, req: AgentProfileEntityDto): AgentProfileEntity {
+    fun update(id: UUID, req: AgentProfileUpdateRequest): AgentProfileEntity {
         val existingAgent = repository.findByIdWithProfile(id)
             ?: throw NoSuchElementException("Agent profile $id not found")
 

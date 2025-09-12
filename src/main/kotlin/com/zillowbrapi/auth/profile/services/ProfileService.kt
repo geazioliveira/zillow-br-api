@@ -1,13 +1,13 @@
 package com.zillowbrapi.auth.profile.services
 
-import com.zillowbrapi.auth.profile.dtos.ProfileCreateRequest
-import com.zillowbrapi.auth.profile.dtos.ProfileUpdateRequest
 import com.zillowbrapi.auth.profile.models.Profile
-import com.zillowbrapi.auth.profile.models.ProfileEntity
+import com.zillowbrapi.auth.profile.models.entities.ProfileEntity
 import com.zillowbrapi.auth.profile.repositories.ProfileRepository
 import com.zillowbrapi.auth.profile.types.ProfileRequestType
 import com.zillowbrapi.auth.profile.types.ProfileType
 import com.zillowbrapi.auth.profile.types.Visibility
+import com.zillowbrapi.auth.profile.validators.ProfileCreateRequest
+import com.zillowbrapi.auth.profile.validators.ProfileUpdateRequest
 import com.zillowbrapi.auth.user.models.UserEntity
 import com.zillowbrapi.auth.user.services.UserService
 import org.springframework.stereotype.Service
